@@ -1,0 +1,117 @@
+.card {
+    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 8px 8px 0 0;
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+.top-foxes .card-img-top {
+    max-height: 200px;
+}
+
+.favorites .card-img-top {
+    max-height: 250px;
+}
+
+.vote-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+}
+
+.vote-btn:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+}
+
+.favorite-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.favorite-btn {
+    min-width: 60px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.05);
+}
+
+.badge {
+    margin: 0.2rem;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition: none;
+    }
+    
+    .favorite-btn:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+    .card {
+        border: 2px solid currentColor;
+    }
+    
+    .btn {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .card-img-top {
+        max-height: 300px;
+    }
+    
+    .top-foxes .card-img-top {
+        max-height: 150px;
+    }
+    
+    .favorites .card-img-top {
+        max-height: 200px;
+    }
+    
+    .favorite-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .favorite-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+/* Toast notifications styling */
+.toast-success {
+    background-color: #28a745;
+}
+
+.toast-info {
+    background-color: #17a2b8;
+}
+
+.toast-error {
+    background-color: #dc3545;
+} 

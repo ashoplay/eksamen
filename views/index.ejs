@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rev Avstemning - Velg den søteste reven!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">🦊 Rev Avstemning</a>
+                <div class="d-flex" id="navbarContent">
+                    <div id="userSection" class="d-none">
+                        <span class="navbar-text me-3">
+                            Logget inn som: <span id="username"></span>
+                        </span>
+                        <button class="btn btn-outline-danger" id="logoutBtn">Logg ut</button>
+                    </div>
+                    <div id="authSection">
+                        <button class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            Logg inn
+                        </button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+                            Registrer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="mainContent" class="d-none">
+            <header class="text-center mb-5">
+                <h1>Velg den søteste reven! 🦊</h1>
+                <p class="lead">Stem på revene du liker best - dine mest stemte rever blir automatisk dine favoritter!</p>
+            </header>
+
+            <main>
+                <div class="row fox-container justify-content-center mb-5">
+                    <div class="col-md-6 col-lg-5 mb-4">
+                        <div class="card h-100">
+                            <img src="<%= fox1.imageUrl %>" class="card-img-top" alt="Rev nummer 1" loading="lazy">
+                            <div class="card-body text-center">
+                                <button class="btn btn-primary vote-btn mb-2" data-image-id="<%= fox1.imageId %>" aria-label="Stem på rev 1">
+                                    Denne er søtest!
+                                </button>
+                                <div class="vote-count">
+                                    <span class="badge bg-info"><%= fox1.votes || 0 %> stemmer totalt</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-5 mb-4">
+                        <div class="card h-100">
+                            <img src="<%= fox2.imageUrl %>" class="card-img-top" alt="Rev nummer 2" loading="lazy">
+                            <div class="card-body text-center">
+                                <button class="btn btn-primary vote-btn mb-2" data-image-id="<%= fox2.imageId %>" aria-label="Stem på rev 2">
+                                    Denne er søtest!
+                                </button>
+                                <div class="vote-count">
+                                    <span class="badge bg-info"><%= fox2.votes || 0 %> stemmer totalt</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="favorites mb-5">
+                    <h2 class="text-center mb-4">Dine mest stemte rever</h2>
+                    <div class="row row-cols-1 row-cols-md-3 g-4 favorites-list justify-content-center">
+                        <!-- Favorites will be inserted here by JavaScript -->
+                    </div>
+                </section>
+
+                <section class="top-foxes mt-5">
+                    <h2 class="text-center mb-4">Mest populære rever</h2>
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
+                        <% topFoxes.forEach((fox, index) => { %>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="<%= fox.imageUrl %>" class="card-img-top" alt="Populær rev <%= index + 1 %>" loading="lazy">
+                                    <div class="card-body text-center">
+                                        <p class="card-text">
+                                            <span class="badge bg-primary"><%= fox.votes %> stemmer</span>
+                                            <% if (fox.favoriteCount > 0) { %>
+                                                <span class="badge bg-success"><%= fox.favoriteCount %> favoritter</span>
+                                            <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <div id="authMessage" class="text-center py-5">
+            <h2>Vennligst logg inn eller registrer deg for å stemme på rever! 🦊</h2>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Logg inn</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginUsername" class="form-label">Brukernavn</label>
+                            <input type="text" class="form-control" id="loginUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Passord</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Logg inn</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrer ny bruker</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="mb-3">
+                            <label for="registerUsername" class="form-label">Brukernavn</label>
+                            <input type="text" class="form-control" id="registerUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Passord</label>
+                            <input type="password" class="form-control" id="registerPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Registrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html> 
