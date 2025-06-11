@@ -44,7 +44,20 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.error('Error:', error);
         res.status(500).render('error', {
-            message: 'Error loading foxes',
+            message: 'Kunne ikke laste inn rever',
+            error: process.env.NODE_ENV === 'development' ? error : {}
+        });
+    }
+});
+
+// FAQ page
+router.get('/faq', (req, res) => {
+    try {
+        res.render('faq');
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).render('error', {
+            message: 'Kunne ikke laste FAQ-siden',
             error: process.env.NODE_ENV === 'development' ? error : {}
         });
     }

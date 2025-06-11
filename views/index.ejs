@@ -13,20 +13,33 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">🦊 Rev Avstemning</a>
-                <div class="d-flex" id="navbarContent">
-                    <div id="userSection" class="d-none">
-                        <span class="navbar-text me-3">
-                            Logget inn som: <span id="username"></span>
-                        </span>
-                        <button class="btn btn-outline-danger" id="logoutBtn">Logg ut</button>
-                    </div>
-                    <div id="authSection">
-                        <button class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
-                            Logg inn
-                        </button>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
-                            Registrer
-                        </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Hjem</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/faq">FAQ</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex" id="navbarContent">
+                        <div id="userSection" class="d-none">
+                            <span class="navbar-text me-3">
+                                Logget inn som: <span id="username"></span>
+                            </span>
+                            <button class="btn btn-outline-danger" id="logoutBtn">Logg ut</button>
+                        </div>
+                        <div id="authSection">
+                            <button class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Logg inn
+                            </button>
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#registerModal">
+                                Registrer
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,11 +57,11 @@
                         <div class="card h-100">
                             <img src="<%= fox1.imageUrl %>" class="card-img-top" alt="Rev nummer 1" loading="lazy">
                             <div class="card-body text-center">
-                                <button class="btn btn-primary vote-btn mb-2" data-image-id="<%= fox1.imageId %>" aria-label="Stem på rev 1">
+                                <button class="btn btn-secondary vote-btn mb-2" data-image-id="<%= fox1.imageId %>" aria-label="Stem på rev 1">
                                     Denne er søtest!
                                 </button>
                                 <div class="vote-count">
-                                    <span class="badge bg-info"><%= fox1.votes || 0 %> stemmer totalt</span>
+                                    <span class="badge bg-secondary"><%= fox1.votes || 0 %> stemmer totalt</span>
                                 </div>
                             </div>
                         </div>
@@ -58,11 +71,11 @@
                         <div class="card h-100">
                             <img src="<%= fox2.imageUrl %>" class="card-img-top" alt="Rev nummer 2" loading="lazy">
                             <div class="card-body text-center">
-                                <button class="btn btn-primary vote-btn mb-2" data-image-id="<%= fox2.imageId %>" aria-label="Stem på rev 2">
+                                <button class="btn btn-secondary vote-btn mb-2" data-image-id="<%= fox2.imageId %>" aria-label="Stem på rev 2">
                                     Denne er søtest!
                                 </button>
                                 <div class="vote-count">
-                                    <span class="badge bg-info"><%= fox2.votes || 0 %> stemmer totalt</span>
+                                    <span class="badge bg-secondary"><%= fox2.votes || 0 %> stemmer totalt</span>
                                 </div>
                             </div>
                         </div>

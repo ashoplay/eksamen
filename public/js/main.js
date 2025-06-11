@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="card-body text-center">
                             <p class="card-text">
                                 <span class="badge bg-success">Din #${favorite.rank} favoritt</span>
-                                <span class="badge bg-info">${favorite.fox.votes} totale stemmer</span>
+                                <span class="badge bg-secondary">${favorite.fox.votes} totale stemmer</span>
                             </p>
                         </div>
                     </div>
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img src="${fox.imageUrl}" class="card-img-top" alt="Populær rev ${index + 1}" loading="lazy">
                     <div class="card-body text-center">
                         <p class="card-text">
-                            <span class="badge bg-primary">${fox.votes} stemmer</span>
+                            <span class="badge bg-secondary">${fox.votes} stemmer</span>
                             ${fox.favoriteCount > 0 ? `
                             <span class="badge bg-success">${fox.favoriteCount} favoritter</span>
                             ` : ''}

@@ -117,11 +117,19 @@ app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 app.use('/api', require('./routes/api'));
 
+// Error handling for 404
+app.use((req, res, next) => {
+    res.status(404).render('error', {
+        message: 'Side ikke funnet',
+        error: { status: 404 }
+    });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).render('error', { 
-        message: 'Something went wrong!',
+        message: 'Noe gikk galt!',
         error: process.env.NODE_ENV === 'development' ? err : {}
     });
 });
