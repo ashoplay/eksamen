@@ -31,8 +31,8 @@ Et system for å stemme på den søteste reven mellom to tilfeldige revebilder.
 
 1. Klon repositoriet:
    ```bash
-   git clone <repository-url>
-   cd rev-avstemning
+   git clone https://github.com/ashoplay/eksamen.git
+   cd eksamen
    ```
 
 2. Installer avhengigheter:
@@ -44,7 +44,7 @@ Et system for å stemme på den søteste reven mellom to tilfeldige revebilder.
    ```
    PORT=3000
    MONGODB_URI=mongodb://10.12.90.11:27017/fox_rating
-   SESSION_SECRET=your_secure_session_secret
+   SESSION_SECRET= (det du ønsker)
    NODE_ENV=development
    ```
 
