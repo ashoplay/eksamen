@@ -31,11 +31,17 @@ async function getRandomFox() {
 // Helper function to update user favorites based on their votes
 async function updateUserFavorites(userId) {
     try {
+        if (!userId) return null;
+        
         // Get user's top 3 most voted foxes
         const topVotedFoxes = await Vote.aggregate([
             { $match: { userId } },
-            { $group: { _id: '$foxId', count: { $sum: 1 } } },
-            { $sort: { count: -1 } },
+            { $group: { 
+                _id: '$foxId',
+                count: { $sum: 1 },
+                lastVoteAt: { $max: '$createdAt' }
+            }},
+            { $sort: { count: -1, lastVoteAt: -1 } },
             { $limit: 3 }
         ]);
 
@@ -55,7 +61,7 @@ async function updateUserFavorites(userId) {
         // Clear existing favorites
         userFavorites.favorites = [];
 
-        // Add new favorites based on vote count
+        // Add new favorites based on personal vote count
         for (let i = 0; i < topVotedFoxes.length; i++) {
             const foxId = topVotedFoxes[i]._id;
             const fox = await Fox.findOne({ imageId: parseInt(foxId) });
@@ -64,6 +70,7 @@ async function updateUserFavorites(userId) {
                 userFavorites.favorites.push({
                     fox: fox._id,
                     rank: i + 1,
+                    voteCount: topVotedFoxes[i].count,
                     addedAt: new Date()
                 });
             }

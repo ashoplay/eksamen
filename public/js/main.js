@@ -156,6 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
             authSection.classList.remove('d-none');
             mainContent.classList.add('d-none');
             authMessage.classList.remove('d-none');
+            // Keep top foxes visible and updated even when not logged in
+            socket.on('votesUpdated', (data) => {
+                if (data.topFoxes) {
+                    updateTopFoxes(data.topFoxes);
+                }
+            });
         }
     }
 
@@ -244,16 +250,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.querySelector('.favorites-list');
         if (!container) return;
 
+        if (!favorites || favorites.length === 0) {
+            container.innerHTML = `
+                <div class="col-12 text-center">
+                    <p class="text-muted">Du har ikke stemt på noen rever ennå. Stem på revene over for å se dine favoritter!</p>
+                </div>
+            `;
+            return;
+        }
+
         container.innerHTML = favorites
             .sort((a, b) => a.rank - b.rank)
             .map(favorite => `
                 <div class="col">
                     <div class="card h-100">
-                        <img src="${favorite.fox.imageUrl}" class="card-img-top" alt="Mest stemt rev #${favorite.rank}" loading="lazy">
+                        <img src="${favorite.fox.imageUrl}" class="card-img-top" alt="Din mest stemte rev #${favorite.rank}" loading="lazy">
                         <div class="card-body text-center">
                             <p class="card-text">
-                                <span class="badge bg-success">Din #${favorite.rank} mest stemte rev</span>
-                                <span class="badge bg-info">${favorite.fox.votes} stemmer</span>
+                                <span class="badge bg-success">Din #${favorite.rank} favoritt</span>
+                                <span class="badge bg-info">${favorite.fox.votes} totale stemmer</span>
                             </p>
                         </div>
                     </div>

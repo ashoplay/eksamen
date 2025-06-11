@@ -75,32 +75,33 @@
                         <!-- Favorites will be inserted here by JavaScript -->
                     </div>
                 </section>
-
-                <section class="top-foxes mt-5">
-                    <h2 class="text-center mb-4">Mest populære rever</h2>
-                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
-                        <% topFoxes.forEach((fox, index) => { %>
-                            <div class="col">
-                                <div class="card h-100">
-                                    <img src="<%= fox.imageUrl %>" class="card-img-top" alt="Populær rev <%= index + 1 %>" loading="lazy">
-                                    <div class="card-body text-center">
-                                        <p class="card-text">
-                                            <span class="badge bg-primary"><%= fox.votes %> stemmer</span>
-                                            <% if (fox.favoriteCount > 0) { %>
-                                                <span class="badge bg-success"><%= fox.favoriteCount %> favoritter</span>
-                                            <% } %>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        <% }); %>
-                    </div>
-                </section>
             </main>
         </div>
 
+        <section class="top-foxes mt-5">
+            <h2 class="text-center mb-4">Mest populære rever totalt</h2>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
+                <% topFoxes.forEach((fox, index) => { %>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="<%= fox.imageUrl %>" class="card-img-top" alt="Populær rev <%= index + 1 %>" loading="lazy">
+                            <div class="card-body text-center">
+                                <p class="card-text">
+                                    <span class="badge bg-primary"><%= fox.votes %> stemmer</span>
+                                    <% if (fox.favoriteCount > 0) { %>
+                                        <span class="badge bg-success"><%= fox.favoriteCount %> favoritter</span>
+                                    <% } %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </section>
+
         <div id="authMessage" class="text-center py-5">
             <h2>Vennligst logg inn eller registrer deg for å stemme på rever! 🦊</h2>
+            <p>For å se dine mest populære rever og stemme må du logge inn.</p>
         </div>
     </div>
 

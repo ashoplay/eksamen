@@ -44,24 +44,24 @@ mongoose.connect(MONGODB_URI, {
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-// Make io available to our routes
-app.set('io', io);
-
 // Middleware
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(cors());
 
 // Session configuration
 app.use(session({
     secret: process.env.SESSION_SECRET || 'your_secure_session_secret',
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: MONGODB_URI }),
+    store: MongoStore.create({ 
+        mongoUrl: MONGODB_URI,
+        ttl: 24 * 60 * 60 // 1 day
+    }),
     cookie: {
         secure: process.env.NODE_ENV === 'production',
-        maxAge: 1000 * 60 * 60 * 24 // 24 hours
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
     }
 }));
 
@@ -72,6 +72,9 @@ app.set('views', path.join(__dirname, 'views'));
 // Models
 const Fox = require('./models/Fox');
 const Vote = require('./models/Vote');
+
+// Make io available to routes
+app.set('io', io);
 
 // Socket.IO connection handling
 io.on('connection', async (socket) => {
@@ -111,6 +114,7 @@ io.on('connection', async (socket) => {
 
 // Routes
 app.use('/', require('./routes/index'));
+app.use('/auth', require('./routes/auth'));
 app.use('/api', require('./routes/api'));
 
 // Error handling middleware
